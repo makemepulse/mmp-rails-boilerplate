@@ -133,7 +133,6 @@ end
 
 
 route '
-  apipie
   scope "/:country", constraints: { country: /[A-Z]{2}/ } do
 
     get "/" => "index#index", :as => "default_no_locale"
@@ -153,6 +152,8 @@ route '
  
 after_bundle do
   run "spring stop"
+
+  generate "apipie:install"
   generate "devise:install"
   generate "devise UserAdmin"
   generate "cancan:ability"
