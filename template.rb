@@ -141,8 +141,7 @@ route '
       get "/" => "index#index", :as => "default"
 
       namespace :api do
-        post "user"  => "user#save", :format => [:json]
-        get "leaderboard"  => "user#leaderboard", :format => [:json]
+        
       end
     end
   end
