@@ -119,6 +119,9 @@ gem "rails_admin", '0.8.1'
 gem "devise", '3.5.5'
 gem "cancancan", '1.13.1'
 
+gem 'mini_magick', '4.4.0'
+gem 'carrierwave', '0.10.0'
+
 gem 'newrelic_rpm', '3.14.2.312'
 
 gem 'apipie-rails', "0.3.5"
@@ -133,7 +136,6 @@ end
 
 
 route '
-  apipie
   scope "/:country", constraints: { country: /[A-Z]{2}/ } do
 
     get "/" => "index#index", :as => "default_no_locale"
@@ -141,8 +143,7 @@ route '
       get "/" => "index#index", :as => "default"
 
       namespace :api do
-        post "user"  => "user#save", :format => [:json]
-        get "leaderboard"  => "user#leaderboard", :format => [:json]
+        
       end
     end
   end
@@ -154,6 +155,8 @@ route '
  
 after_bundle do
   run "spring stop"
+
+  generate "apipie:install"
   generate "devise:install"
   generate "devise UserAdmin"
   generate "cancan:ability"
@@ -170,6 +173,7 @@ after_bundle do
   remove_file "app/models/localization.rb"
   remove_file "app/models/user_admin.rb"
 
+  copy_file "config/initializers/carrierwave.rb"
   copy_file "config/initializers/rails_admin.rb"
   copy_file "app/models/ability.rb"
   copy_file "app/models/country.rb"

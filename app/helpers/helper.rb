@@ -1,7 +1,9 @@
 module ApplicationHelper
 
   def inline_svg(path)
-    file = File.open("app/assets/images/#{path}", 'rb')
-    raw file.read
+    svg =  Rails.cache.fetch("svg_#{path}") do
+      Rails.application.assets.find_asset(path + '.svg').to_s
+    end
+    raw svg
   end
 end
