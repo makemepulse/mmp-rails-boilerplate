@@ -174,6 +174,7 @@ after_bundle do
   remove_file "app/models/user_admin.rb"
 
   copy_file "config/initializers/carrierwave.rb"
+  copy_file "config/initializers/asset_sync.rb"
   copy_file "config/initializers/rails_admin.rb"
   copy_file "app/models/ability.rb"
   copy_file "app/models/country.rb"
